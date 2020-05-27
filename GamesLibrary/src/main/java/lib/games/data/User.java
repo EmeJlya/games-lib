@@ -40,6 +40,13 @@ public class User implements Serializable {
         this.accessLevel = level;
     }
 
+    public User(String username, String password) {
+        this.id = UUID.randomUUID().toString();
+        this.username = username;
+        this.password = password;
+        this.accessLevel = AccessLevel.USER;
+    }
+
     public String getFullName() {
         return fullName;
     }

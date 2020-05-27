@@ -53,6 +53,7 @@
     </dependencyManagement>
 
     <dependencies>
+
         <dependency>
             <groupId>com.vaadin</groupId>
             <!-- Replace artifactId with vaadin-core to use only free components -->
@@ -105,6 +106,15 @@
             <artifactId>vaadin-testbench</artifactId>
             <scope>test</scope>
         </dependency>
+
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>42.2.12</version>
+            <type>jar</type>
+            <scope>compile</scope>
+        </dependency>
+
     </dependencies>
 
     <build>
