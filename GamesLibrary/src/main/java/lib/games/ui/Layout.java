@@ -29,32 +29,22 @@ public class Layout extends AppLayout implements RouterLayout {
     public Layout() {
 
 
-        // menu toggle
+
         final DrawerToggle drawerToggle = new DrawerToggle();
         drawerToggle.addClassName("menu-toggle");
         addToNavbar(drawerToggle);
 
-        // image, logo
+
         final HorizontalLayout top = new HorizontalLayout();
         top.setDefaultVerticalComponentAlignment(FlexComponent.Alignment.CENTER);
         top.setClassName("menu-header");
 
-        // Note! Image resource url is resolved here as it is dependent on the
-        // execution mode (development or production) and browser ES level
-        // support
+
         final Label title = new Label("Games Library");
         top.add(title);
         addToNavbar(top);
 
-        // Navigation items
-        //addToDrawer(createMenuLink(InventoryView.class, InventoryView.VIEW_NAME,
-         //       VaadinIcon.EDIT.create()));
 
-        //addToDrawer(createMenuLink(AboutView.class, AboutView.VIEW_NAME,
-         //       VaadinIcon.INFO_CIRCLE.create()));
-
-        // Create logout button but don't add it yet; admin view might be added
-        // in between (see #onAttach())
         logoutButton = createMenuButton("Logout", VaadinIcon.SIGN_OUT.create());
         logoutButton.addClickListener(e -> logout());
         logoutButton.getElement().setAttribute("title", "Logout (Ctrl+L)");
@@ -85,14 +75,13 @@ public class Layout extends AppLayout implements RouterLayout {
     }
 
     private void registerAdminViewIfApplicable(AccessControl accessControl) {
-        // register the admin view dynamically only for any admin user logged in
+
         if (accessControl.isUserInRole(AccessLevel.ADMINISTRATOR)
                 && !RouteConfiguration.forSessionScope()
                 .isRouteRegistered(GamesView.class)) {
             RouteConfiguration.forSessionScope().setRoute(GamesView.VIEW_NAME,
                     GamesView.class, Layout.class);
-            // as logout will purge the session route registry, no need to
-            // unregister the view on logout
+
         }
     }
 
@@ -100,25 +89,19 @@ public class Layout extends AppLayout implements RouterLayout {
     protected void onAttach(AttachEvent attachEvent) {
         super.onAttach(attachEvent);
 
-        // User can quickly activate logout with Ctrl+L
         attachEvent.getUI().addShortcutListener(() -> logout(), Key.KEY_L,
                 KeyModifier.CONTROL);
 
-        // add the admin view menu item if user has admin role
         final AccessControl accessControl = AccessControlFactory.getInstance()
                 .createAccessControl();
         if (accessControl.isUserInRole(AccessLevel.MODERATOR)) {
 
-            // Create extra navigation target for admins
             registerAdminViewIfApplicable(accessControl);
 
-            // The link can only be created now, because the RouterLink checks
-            // that the target is valid.
             addToDrawer(createMenuLink(GamesView.class, GamesView.VIEW_NAME,
                     VaadinIcon.DOCTOR.create()));
         }
 
-        // Finally, add logout button for all users
         addToDrawer(logoutButton);
     }
 

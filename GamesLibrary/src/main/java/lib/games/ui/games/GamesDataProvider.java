@@ -31,14 +31,7 @@ public class GamesDataProvider extends ListDataProvider<Game> {
         refreshAll();
     }
 
-    /**
-     * Sets the filter to use for this data provider and refreshes data.
-     * <p>
-     * Filter is compared for product name, availability and category.
-     *
-     * @param filterText
-     *            the text to filter by, never null
-     */
+
     public void setFilter(String filterText) {
         Objects.requireNonNull(filterText, "Filter text cannot be null.");
         if (Objects.equals(this.filterText, filterText.trim())) {

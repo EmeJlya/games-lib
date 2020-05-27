@@ -28,13 +28,13 @@ public class GamesList extends Grid<Game> {
     }
 
     private void setColumnVisibility(int width) {
-        if (width > 500) {
+        if (width > 800) {
             getColumnByKey("gamename").setVisible(true);
             getColumnByKey("gamegenre").setVisible(true);
             getColumnByKey("gameyear").setVisible(true);
             getColumnByKey("gamedev").setVisible(true);
             getColumnByKey("gamedistr").setVisible(true);
-        } else if (width > 200){
+        } else if (width > 400){
             getColumnByKey("gamename").setVisible(true);
             getColumnByKey("gamegenre").setVisible(true);
             getColumnByKey("gameyear").setVisible(false);
@@ -53,7 +53,6 @@ public class GamesList extends Grid<Game> {
     protected void onAttach(AttachEvent attachEvent) {
         super.onAttach(attachEvent);
 
-        // fetch browser width
         UI.getCurrent().getInternals().setExtendedClientDetails(null);
         UI.getCurrent().getPage().retrieveExtendedClientDetails(e -> {
             setColumnVisibility(e.getBodyClientWidth());

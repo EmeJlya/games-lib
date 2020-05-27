@@ -15,14 +15,11 @@ public class GameViewLogic {
         view = simpleCrudView;
     }
 
-    /**
-     * Does the initialization of the inventory view including disabling the
-     * buttons if the user doesn't have access.
-     */
+
     public void init() {
         if (!AccessControlFactory.getInstance().createAccessControl()
                 .isUserInRole(AccessLevel.MODERATOR)) {
-            view.setNewProductEnabled(false);
+            //view.setNewProductEnabled(false);
         }
     }
 
@@ -31,13 +28,7 @@ public class GameViewLogic {
         view.clearSelection();
     }
 
-    /**
-     * Updates the fragment without causing InventoryViewLogic navigator to
-     * change view. It actually appends the productId as a parameter to the URL.
-     * The parameter is set to keep the view state the same during e.g. a
-     * refresh and to enable bookmarking of individual product selections.
-     *
-     */
+
     private void setFragmentParameter(String productId) {
         String fragmentParameter;
         if (productId == null || productId.isEmpty()) {
@@ -49,15 +40,7 @@ public class GameViewLogic {
         UI.getCurrent().navigate(GamesView.class, fragmentParameter);
     }
 
-    /**
-     * Opens the product form and clears its fields to make it ready for
-     * entering a new product if productId is null, otherwise loads the product
-     * with the given productId and shows its data in the form fields so the
-     * user can edit them.
-     *
-     *
-     * @param
-     */
+
     public void enter(String gameId) {
         if (gameId != null && !gameId.isEmpty()) {
                 try {
@@ -97,7 +80,7 @@ public class GameViewLogic {
         if (game == null) {
             setFragmentParameter("");
         } else {
-            setFragmentParameter(game.getId() + "");
+            setFragmentParameter(game.getName() + "");
         }
         view.editGame(game);
     }

@@ -25,7 +25,6 @@ public class GamesView extends HorizontalLayout implements HasUrlParameter<Strin
     private TextField filter;
 
     private final GameViewLogic viewLogic = new GameViewLogic(this);
-    private Button newProduct;
 
    private final GamesDataProvider dataProvider = new GamesDataProvider();
 
@@ -34,7 +33,6 @@ public class GamesView extends HorizontalLayout implements HasUrlParameter<Strin
         final HorizontalLayout topLayout = createTopBar();
         list = new GamesList();
         list.setDataProvider(dataProvider);
-        // Allows user to select a single row in the grid.
         list.asSingleSelect().addValueChangeListener(event -> viewLogic.rowSelected(event.getValue()));
         form = new GamesForm(viewLogic);
         final VerticalLayout barAndGridLayout = new VerticalLayout();
@@ -55,23 +53,13 @@ public class GamesView extends HorizontalLayout implements HasUrlParameter<Strin
     public HorizontalLayout createTopBar() {
         filter = new TextField();
         filter.setPlaceholder("Filter name, availability or category");
-        // Apply the filter to grid's data provider. TextField value is never
-       filter.addValueChangeListener(event -> dataProvider.setFilter(event.getValue()));
-        // A shortcut to focus on the textField by pressing ctrl + F
+        filter.addValueChangeListener(event -> dataProvider.setFilter(event.getValue()));
         filter.addFocusShortcut(Key.KEY_F, KeyModifier.CONTROL);
 
-        newProduct = new Button("New product");
-        // Setting theme variant of new production button to LUMO_PRIMARY that
-        // changes its background color to blue and its text color to white
-        newProduct.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
-        newProduct.setIcon(VaadinIcon.PLUS_CIRCLE.create());
-        //newProduct.addClickListener(click -> viewLogic.newProduct());
-        // A shortcut to click the new product button by pressing ALT + N
-        newProduct.addClickShortcut(Key.KEY_N, KeyModifier.ALT);
+
         final HorizontalLayout topLayout = new HorizontalLayout();
         topLayout.setWidth("100%");
         topLayout.add(filter);
-        topLayout.add(newProduct);
         topLayout.setVerticalComponentAlignment(Alignment.START, filter);
         topLayout.expand(filter);
         return topLayout;
@@ -81,37 +69,18 @@ public class GamesView extends HorizontalLayout implements HasUrlParameter<Strin
         Notification.show(msg);
     }
 
-    /**
-     * Shows a temporary popup notification to the user.
-     *
-     * @see Notification#show(String)
-     * @param msg
-     */
+
     public void showNotification(String msg) {
         Notification.show(msg);
     }
 
-    /**
-     * Enables/Disables the new product button.
-     *
-     * @param enabled
-     */
-    public void setNewProductEnabled(boolean enabled) {
-        newProduct.setEnabled(enabled);
-    }
 
-    /**
-     * Deselects the selected row in the grid.
-     */
+
+
     public void clearSelection() {
         list.getSelectionModel().deselectAll();
     }
 
-    /**
-     * Selects a row
-     *
-     * @param row
-     */
     public void selectRow(Game row) {
         list.getSelectionModel().select(row);
     }
@@ -135,14 +104,11 @@ public class GamesView extends HorizontalLayout implements HasUrlParameter<Strin
         form.editGame(game);
     }
 
-    /**
-     * Shows and hides the new product form
-     *
-     * @param show
-     */
+
     public void showForm(boolean show) {
         form.setVisible(show);
         form.setEnabled(show);
+        form.setWidth("800%");
     }
 
     @Override

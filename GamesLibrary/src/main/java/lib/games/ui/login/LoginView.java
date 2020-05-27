@@ -25,20 +25,16 @@ public class LoginView extends FlexLayout {
         setSizeFull();
         setClassName("login-screen");
 
-        // login form, centered in the available part of the screen
         LoginForm loginForm = new LoginForm();
         loginForm.addLoginListener(this::login);
         loginForm.addForgotPasswordListener(
                 event -> Notification.show("Hint: same as username"));
 
-        // layout to center login form when there is sufficient screen space
         FlexLayout centeringLayout = new FlexLayout();
         centeringLayout.setSizeFull();
         centeringLayout.setJustifyContentMode(JustifyContentMode.CENTER);
         centeringLayout.setAlignItems(Alignment.CENTER);
         centeringLayout.add(loginForm);
-
-        // information text about logging in
 
         add(centeringLayout);
     }
