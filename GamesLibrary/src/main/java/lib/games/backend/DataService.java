@@ -145,10 +145,11 @@ public class DataService {
     public void addCompany(Company company) {
         try {
             DatabaseManager.getInstance().execute("INSERT INTO public.companies(" +
-                    "   id, name, foundation)\n"+
+                    "   id, name, countryid, foundation)\n"+
                     "VALUES ('"
                     + company.getId() + "', '"
                     + company.getName() + "', '"
+                    + company.getCountry() + "', '"
                     + company.getFoundationYear() +"');");
         }
         catch (SQLException e) {

@@ -7,13 +7,10 @@ import lib.games.data.User;
 
 public class CurrentUser {
 
+    public static User user;
     public static AccessLevel level;
     public static final String CURRENT_USER_SESSION_ATTRIBUTE_KEY = CurrentUser.class
             .getCanonicalName();
-
-    public CurrentUser() {
-    }
-
 
 
     public static String get() {
@@ -26,6 +23,10 @@ public class CurrentUser {
         }
     }
 
+    public static User getUser() {
+        return user;
+    }
+
     public static void set(User currentUser) {
         if (currentUser == null) {
             getCurrentRequest().getWrappedSession().removeAttribute(
@@ -34,8 +35,10 @@ public class CurrentUser {
             level = currentUser.getAccessLevel();
             getCurrentRequest().getWrappedSession().setAttribute(
                     CURRENT_USER_SESSION_ATTRIBUTE_KEY, currentUser.getUsername());
+            user = currentUser;
         }
     }
+
 
     private static VaadinRequest getCurrentRequest() {
         VaadinRequest request = VaadinService.getCurrentRequest();

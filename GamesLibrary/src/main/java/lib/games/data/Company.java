@@ -16,20 +16,30 @@ public class Company implements Serializable {
     private final String id;
     private String name;
     private String country;
-    private String foundationYear;
+    private int foundationYear;
 
     public Company(String name) {
         this.id = UUID.randomUUID().toString();
         this.name = name;
+        this.country = "";
+        this.foundationYear = 1900;
     }
 
-    public Company(String name, String foundationYear) {
+    public Company(String name, int foundationYear) {
         this.id = UUID.randomUUID().toString();
         this.name = name;
+        this.country = "";
         this.foundationYear = foundationYear;
     }
 
-    public Company(String id, String name, String country, String foundationYear) {
+    public Company(String name, int foundationYear, String country) {
+        this.id = UUID.randomUUID().toString();
+        this.name = name;
+        this.foundationYear = foundationYear;
+        this.country = country;
+    }
+
+    public Company(String id, String name, String country, int foundationYear) {
         this.id = id;
         this.name = name;
         this.country = country;
@@ -56,11 +66,11 @@ public class Company implements Serializable {
         this.country = country;
     }
 
-    public String getFoundationYear() {
+    public int getFoundationYear() {
         return foundationYear;
     }
 
-    public void setFoundationYear(String foundationYear) {
+    public void setFoundationYear(int foundationYear) {
         this.foundationYear = foundationYear;
     }
 }

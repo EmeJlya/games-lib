@@ -81,7 +81,6 @@ public class GamesForm  extends Div {
 
         binder = new Binder<>(Game.class);
 
-         //enable/disable save button while editing
         binder.addStatusChangeListener(event -> {
             final boolean isValid = !event.hasValidationErrors();
             final boolean hasChanges = binder.hasChanges();

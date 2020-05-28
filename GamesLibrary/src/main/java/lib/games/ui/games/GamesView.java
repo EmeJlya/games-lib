@@ -12,6 +12,8 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.*;
 import com.vaadin.flow.server.VaadinSession;
+import lib.games.authentication.AccessControl;
+import lib.games.authentication.AccessControlFactory;
 import lib.games.authentication.CurrentUser;
 import lib.games.data.Game;
 import lib.games.ui.Layout;
@@ -119,9 +121,10 @@ public class GamesView extends HorizontalLayout implements HasUrlParameter<Strin
 
     @Override
     public void beforeEnter(BeforeEnterEvent beforeEnterEvent) {
-        if (CurrentUser.get().equals("")) {
-            VaadinSession.getCurrent().getSession().invalidate();
+        AccessControl accessControl = AccessControlFactory.getInstance().createAccessControl();
+        if (!accessControl.isUserSignedIn()) {
             UI.getCurrent().navigate("login");
+            UI.getCurrent().getPage().reload();
         }
     }
 }

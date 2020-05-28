@@ -8,6 +8,8 @@ import com.vaadin.flow.router.BeforeEnterObserver;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.PWA;
 import com.vaadin.flow.server.VaadinSession;
+import lib.games.authentication.AccessControl;
+import lib.games.authentication.AccessControlFactory;
 import lib.games.authentication.CurrentUser;
 
 /**
@@ -26,9 +28,10 @@ public class MainView extends HorizontalLayout implements BeforeEnterObserver {
 
     @Override
     public void beforeEnter(BeforeEnterEvent beforeEnterEvent) {
-        if (CurrentUser.get().equals("")) {
-            VaadinSession.getCurrent().getSession().invalidate();
+        AccessControl accessControl = AccessControlFactory.getInstance().createAccessControl();
+        if (!accessControl.isUserSignedIn()) {
             UI.getCurrent().navigate("login");
+            UI.getCurrent().getPage().reload();
         }
     }
 }

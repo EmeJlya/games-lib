@@ -17,10 +17,7 @@ public class GameViewLogic {
 
 
     public void init() {
-        if (!AccessControlFactory.getInstance().createAccessControl()
-                .isUserInRole(AccessLevel.MODERATOR)) {
-            //view.setNewProductEnabled(false);
-        }
+
     }
 
     public void cancelGame() {
@@ -92,9 +89,6 @@ public class GameViewLogic {
     }
 
     public void rowSelected(Game game) {
-        if (AccessControlFactory.getInstance().createAccessControl()
-                .isUserInRole(AccessLevel.MODERATOR)) {
             editGame(game);
-        }
     }
 }

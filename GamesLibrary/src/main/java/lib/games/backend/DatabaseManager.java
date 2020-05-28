@@ -70,7 +70,7 @@ public class DatabaseManager {
             return new User ( resultSet.getString ( "id" ), resultSet.getString ( "username" ), resultSet.getString ( "realname" ), resultSet.getString ( "password" ), resultSet.getString ( "email" ), AccessLevel.getById(resultSet.getInt("access")));
         }
         if ( clazz.equals(Company.class)) {
-            return new Company(resultSet.getString("id"), resultSet.getString("name"), resultSet.getString("countryid"), resultSet.getString("foundation"));
+            return new Company(resultSet.getString("id"), resultSet.getString("name"), resultSet.getString("countryid"), resultSet.getInt("foundation"));
         }
         if ( clazz.equals(Comment.class)) {
             return new Comment(resultSet.getString("id"), resultSet.getString("userid"), resultSet.getString("gameid"), resultSet.getString("text"));
